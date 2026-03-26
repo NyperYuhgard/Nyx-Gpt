@@ -1,0 +1,61 @@
+body {
+    background-color: #000000; /* Negro absoluto del visor */
+    color: #00FFFF; /* CYAN NYX - Mismo color que los ojos en la imagen */
+    font-family: 'Courier New', Courier, monospace; /* Fuente de terminal */
+    margin: 0;
+    overflow: hidden; /* Sin barras de desplazamiento */
+}
+
+.visor-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Efecto de 'brillo de monitor antiguo' */
+    text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
+}
+
+#terminal-output {
+    flex-grow: 1;
+    overflow-y: auto; /* El texto viejo sube */
+}
+
+input {
+    background: transparent;
+    border: none;
+    color: #00FFFF;
+    font-family: inherit;
+    font-size: 1em;
+    outline: none;
+    width: 100%;
+}
+
+input::placeholder {
+    color: rgba(0, 255, 255, 0.5); /* Placeholder medio transparente */
+}
+
+/* Efecto de líneas de escaneo (Scanlines) */
+.visor-container::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+/* Animación de parpadeo suave */
+@keyframes flicker {
+    0% { opacity: 0.97; }
+    5% { opacity: 0.95; }
+    10% { opacity: 0.9; }
+    100% { opacity: 1; }
+}
+
+.visor-container {
+    animation: flicker 0.15s infinite;
+}
